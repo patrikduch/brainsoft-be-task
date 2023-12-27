@@ -1,0 +1,43 @@
+{
+  "name": "brainsoft-be-task",
+  "version": "1.0.0",
+  "description": "Pokemon task developed for Brainsoft startup.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -w",
+    "clean": "rimraf build",
+    "dev": "nodemon build/index.js",
+    "start": "node build/index.js",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migrations:run": "yarn run clean && tsc && yarn run typeorm migration:run -d ./src/data-source.ts",
+    "migration:generate": "yarn run clean && tsc && yarn run typeorm migration:generate -d ./src/data-source.ts",
+    "migration:create": "yarn run clean && tsc && yarn run typeorm migration:create"
+  },
+  "author": "Patrik Duch",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@fastify/awilix": "^4.0.0",
+    "awilix": "^9.0.0",
+    "fastify": "^4.25.1",
+    "fastify-plugin": "^4.5.1",
+    "graphql": "^16.8.1",
+    "mercurius": "^13.3.2",
+    "mongoose": "^8.0.3",
+    "nodemon": "^3.0.2",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.2.1",
+    "typeorm": "^0.3.17"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.5.0",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^20.10.4",
+    "@types/pino": "^7.0.5",
+    "graphql-playground-html": "^1.6.30",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typeorm-fastify-plugin": "^1.0.5",
+    "typescript": "^5.3.3"
+  }
+}
