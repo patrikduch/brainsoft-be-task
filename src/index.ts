@@ -22,6 +22,7 @@ import { CreatureTypeEntity } from "./entities/creature-type-entity";
 import { WeaknessEntity } from "./entities/weakness-entity";
 import { ResistanceEntity } from "./entities/resistence-entity";
 import { AttackEntity, AttackType } from "./entities/attack-entity";
+import { setFavoritePokemonMutation } from "./graphql/mutations/pokemon-favorite-mutation";
 
 const dbConn = require("typeorm-fastify-plugin");
 
@@ -60,6 +61,9 @@ diContainer.register({
 
 const resolvers: IResolvers<any, IGraphQLContext> = {
   Mutation: {
+    async setFavoritePokemon(_, { pokemonId }, context) {
+      return setFavoritePokemonMutation(pokemonId, context);
+    },
     addItem: async (_, {}, context) => {
       const creatureEntityRepository =
         context.fastify.orm.getRepository(CreatureEntity);

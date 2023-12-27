@@ -7,6 +7,7 @@ type Query {
 }
 type Mutation {
   addItem(name: String!): Item
+  setFavoritePokemon(pokemonId: String!): Boolean
 }
 
 type PokemonItem {
