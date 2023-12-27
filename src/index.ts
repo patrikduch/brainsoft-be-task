@@ -23,6 +23,7 @@ import { WeaknessEntity } from "./entities/weakness-entity";
 import { ResistanceEntity } from "./entities/resistence-entity";
 import { AttackEntity, AttackType } from "./entities/attack-entity";
 import { setFavoritePokemonMutation } from "./graphql/mutations/pokemon-favorite-mutation";
+import { EvolutionEntity } from "./entities/evolution-entity";
 
 const dbConn = require("typeorm-fastify-plugin");
 
@@ -79,6 +80,9 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
 
       const attackEntityRepository =
         context.fastify.orm.getRepository(AttackEntity);
+
+      const evolutionEntityRepository =
+        context.fastify.orm.getRepository(EvolutionEntity);
 
       // await seedCreatureTypes(context);
 

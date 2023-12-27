@@ -9,6 +9,7 @@ export class PokemonItemDto {
   public classification: string | undefined;
   public weightminimum: number | undefined;
   public types: PokemonTypeDto[] | undefined;
+  public isFavorite: boolean | undefined;
   public resistances: PokemonResistanceDto[] | undefined;
   public weaknesses: PokemonWeaknessDto[] | undefined;
   public attacks: PokemonAttackDto[] | undefined;

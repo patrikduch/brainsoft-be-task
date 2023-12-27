@@ -48,6 +48,8 @@ export async function getPokemonItemByIdResolver(
     (attack) => new PokemonAttackDto(attack.id, attack.name)
   );
 
+  result.isFavorite = pokemonItem?.isFavorite;
+
   context.fastify.log.info(result);
 
   return result;
@@ -89,6 +91,8 @@ export async function searchPokemonByNameResolver(
   result.attacks = pokemonItem?.attacks?.map(
     (attack) => new PokemonAttackDto(attack.id, attack.name)
   );
+
+  result.isFavorite = pokemonItem?.isFavorite;
 
   return result;
 }

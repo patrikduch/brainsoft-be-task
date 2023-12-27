@@ -18,6 +18,7 @@ type PokemonItem {
   resistances: [PokemonResistance!]
   weaknesses: [PokemonWeakness!]
   attacks: [PokemonAttack!]
+  isFavorite: Boolean
 }
 
 type PokemonType {
