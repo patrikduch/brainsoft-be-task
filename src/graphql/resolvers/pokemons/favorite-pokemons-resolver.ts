@@ -11,7 +11,7 @@ export async function favoritePokemonsResolver(
 
   const favoriteCreatures = await creatureEntityRepository.find({
     where: { isFavorite: true },
-    relations: ["types", "resistances", "weaknesses", "attacks", "evolutions"], // adjust based on what you want to include
+    relations: ["types", "resistances", "weaknesses", "attacks", "evolutions"],
   });
 
   let pokemons: PokemonItemDto[] = [];

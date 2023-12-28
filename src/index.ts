@@ -10,10 +10,6 @@ import { diContainer, fastifyAwilixPlugin } from "@fastify/awilix";
 import TypeOrmExampleService from "./services/typeorm-example-service";
 import { asClass, asValue } from "awilix";
 import { IGraphQLContext } from "./typescript/interfaces/IGraphQLContext";
-import {
-  getPokemonItemByIdResolver,
-  searchPokemonByNameResolver,
-} from "./graphql/resolvers/pokemon-resolver";
 import PokemonService from "./services/pokemon-service";
 import { getPokemonTypesResolver } from "./graphql/resolvers/pokemon-types-resolver";
 import { setFavoritePokemonMutation } from "./graphql/mutations/pokemons/pokemon-favorite-mutation";
@@ -32,6 +28,8 @@ import { seedButterfreePokemon } from "./seeders/pokemons/butterfree-seeder";
 import { seedWeedlePokemon } from "./seeders/pokemons/weedle-seeder";
 import { favoritePokemonsResolver } from "./graphql/resolvers/pokemons/favorite-pokemons-resolver";
 import { getPokemonsResolver } from "./graphql/resolvers/pokemons/get-pokemons-resolver";
+import { getPokemonItemByIdResolver } from "./graphql/resolvers/pokemons/pokemon-id-resolver";
+import { searchPokemonByNameResolver } from "./graphql/resolvers/pokemons/pokemon-name-search-resolver";
 
 const dbConn = require("typeorm-fastify-plugin");
 

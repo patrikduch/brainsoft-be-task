@@ -6,7 +6,7 @@ import { PokemonWeaknessDto } from "../dtos/pokemon-weakness-dto";
 import { CreatureEntity } from "../entities/creature-entity";
 
 export const mapToPokemonItemDto = (
-  pokemonItem: CreatureEntity
+  pokemonItem: CreatureEntity | null
 ): PokemonItemDto => {
   const result = new PokemonItemDto();
   result.id = pokemonItem?.id;
