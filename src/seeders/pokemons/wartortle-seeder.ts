@@ -1,9 +1,9 @@
-import { AttackEntity } from "../../entities/attack-entity";
+import { OrmType } from "../../../fastify";
+import { AttackEntity, AttackType } from "../../entities/attack-entity";
 import { CreatureEntity } from "../../entities/creature-entity";
 import { CreatureTypeEntity } from "../../entities/creature-type-entity";
 import { ResistanceEntity } from "../../entities/resistence-entity";
 import { WeaknessEntity } from "../../entities/weakness-entity";
-import { IGraphQLContext } from "../../typescript/interfaces/IGraphQLContext";
 
 const wartortleData = {
   id: "008",
@@ -19,33 +19,49 @@ const wartortleData = {
   maxHP: 1582,
   attacks: {
     fast: [
-      { name: "Bite", type: "Dark", damage: 6 },
-      { name: "Water Gun", type: "Water", damage: 6 },
+      { name: "Bite", type: "Dark", damage: 6, attackType: AttackType.Fast },
+      {
+        name: "Water Gun",
+        type: "Water",
+        damage: 6,
+        attackType: AttackType.Fast,
+      },
     ],
     special: [
-      { name: "Aqua Jet", type: "Water", damage: 25 },
-      { name: "Gunk Shot", type: "Poison", damage: 65 },
-      { name: "Hydro Pump", type: "Water", damage: 90 },
-      { name: "Ice Beam", type: "Ice", damage: 65 },
+      {
+        name: "Aqua Jet",
+        type: "Water",
+        damage: 25,
+        attackType: AttackType.Special,
+      },
+      {
+        name: "Gunk Shot",
+        type: "Poison",
+        damage: 65,
+        attackType: AttackType.Special,
+      },
+      {
+        name: "Hydro Pump",
+        type: "Water",
+        damage: 90,
+        attackType: AttackType.Special,
+      },
+      {
+        name: "Ice Beam",
+        type: "Ice",
+        damage: 65,
+        attackType: AttackType.Special,
+      },
     ],
   },
 };
 
-export async function seedWarTortlePokemon(context: IGraphQLContext) {
-  const creatureEntityRepository =
-    context.fastify.orm.getRepository(CreatureEntity);
-
-  const creatureTypeEntityRepository =
-    context.fastify.orm.getRepository(CreatureTypeEntity);
-
-  const resistanceEntityRepository =
-    context.fastify.orm.getRepository(ResistanceEntity);
-
-  const weaknessEntityRepository =
-    context.fastify.orm.getRepository(WeaknessEntity);
-
-  const attackEntityRepository =
-    context.fastify.orm.getRepository(AttackEntity);
+export async function seedWarTortlePokemon(orm: OrmType) {
+  const creatureEntityRepository = orm.getRepository(CreatureEntity);
+  const creatureTypeEntityRepository = orm.getRepository(CreatureTypeEntity);
+  const resistanceEntityRepository = orm.getRepository(ResistanceEntity);
+  const weaknessEntityRepository = orm.getRepository(WeaknessEntity);
+  const attackEntityRepository = orm.getRepository(AttackEntity);
 
   const wartortleEntity = await creatureEntityRepository.findOne({
     where: { id: wartortleData.id },
@@ -64,6 +80,69 @@ export async function seedWarTortlePokemon(context: IGraphQLContext) {
     wartortle.maxCP = wartortleData.maxCP;
     wartortle.maxHP = wartortleData.maxHP;
 
+    // Add types
+    wartortle.types = [];
+    for (const typeName of wartortleData.types) {
+      let typeEntity = await creatureTypeEntityRepository.findOne({
+        where: { type: typeName },
+      });
+      if (!typeEntity) {
+        typeEntity = new CreatureTypeEntity();
+        typeEntity.type = typeName;
+        await creatureTypeEntityRepository.save(typeEntity);
+      }
+      wartortle.types.push(typeEntity);
+    }
+
+    // Add resistances
+    wartortle.resistances = [];
+    for (const resistanceName of wartortleData.resistances) {
+      let resistanceEntity = await resistanceEntityRepository.findOne({
+        where: { name: resistanceName },
+      });
+      if (!resistanceEntity) {
+        resistanceEntity = new ResistanceEntity();
+        resistanceEntity.name = resistanceName;
+        await resistanceEntityRepository.save(resistanceEntity);
+      }
+      wartortle.resistances.push(resistanceEntity);
+    }
+
+    // Add weaknesses
+    wartortle.weaknesses = [];
+    for (const weaknessName of wartortleData.weaknesses) {
+      let weaknessEntity = await weaknessEntityRepository.findOne({
+        where: { name: weaknessName },
+      });
+      if (!weaknessEntity) {
+        weaknessEntity = new WeaknessEntity();
+        weaknessEntity.name = weaknessName;
+        await weaknessEntityRepository.save(weaknessEntity);
+      }
+      wartortle.weaknesses.push(weaknessEntity);
+    }
+
+    // Add attacks
+    wartortle.attacks = [];
+    for (const attackData of [
+      ...wartortleData.attacks.fast,
+      ...wartortleData.attacks.special,
+    ]) {
+      let attackEntity = await attackEntityRepository.findOne({
+        where: { name: attackData.name },
+      });
+      if (!attackEntity) {
+        attackEntity = new AttackEntity();
+        attackEntity.name = attackData.name;
+        attackEntity.type = attackData.type;
+        attackEntity.damage = attackData.damage;
+        attackEntity.attackType = attackData.attackType;
+        await attackEntityRepository.save(attackEntity);
+      }
+      wartortle.attacks.push(attackEntity);
+    }
+
     await creatureEntityRepository.save(wartortle);
+    console.log("Finished seed of Wartortle pokemon!");
   }
 }
