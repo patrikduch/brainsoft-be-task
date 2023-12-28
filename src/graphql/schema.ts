@@ -2,6 +2,7 @@ export const schema = `
 type Query {
   hello: String
   pokemons(pageId: Int, pageSize: Int): PokemonPage
+  favoritePokemons: [PokemonItem]
   getPokemonById(id: String!): PokemonItem
   searchByName(name: String!): PokemonItem
   getPokemonTypes: [PokemonType!]

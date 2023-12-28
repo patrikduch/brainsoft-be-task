@@ -1,5 +1,5 @@
-import { CreatureEntity } from "../../entities/creature-entity";
-import { IGraphQLContext } from "../../typescript/interfaces/IGraphQLContext";
+import { CreatureEntity } from "../../../entities/creature-entity";
+import { IGraphQLContext } from "../../../typescript/interfaces/IGraphQLContext";
 
 export async function setFavoritePokemonMutation(
   pokemonId: string,

@@ -23,7 +23,7 @@ import { CreatureTypeEntity } from "./entities/creature-type-entity";
 import { WeaknessEntity } from "./entities/weakness-entity";
 import { ResistanceEntity } from "./entities/resistence-entity";
 import { AttackEntity, AttackType } from "./entities/attack-entity";
-import { setFavoritePokemonMutation } from "./graphql/mutations/pokemon-favorite-mutation";
+import { setFavoritePokemonMutation } from "./graphql/mutations/pokemons/pokemon-favorite-mutation";
 import { EvolutionEntity } from "./entities/evolution-entity";
 import { seedIvySaurPokemon } from "./seeders/pokemons/ivysaur-seeder";
 import { seedBulbasaurPokemon } from "./seeders/pokemons/bulbasaur-seeder";
@@ -38,6 +38,7 @@ import { seedCaterpiePokemon } from "./seeders/pokemons/caterpie-seeder";
 import { seedMetapodPokemon } from "./seeders/pokemons/metapod-seeder";
 import { seedButterfreePokemon } from "./seeders/pokemons/butterfree-seeder";
 import { seedWeedlePokemon } from "./seeders/pokemons/weedle-seeder";
+import { favoritePokemonsResolver } from "./graphql/resolvers/pokemons/favorite-pokemons-resolver";
 
 const dbConn = require("typeorm-fastify-plugin");
 
@@ -101,8 +102,10 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
   Query: {
     hello: helloResolver,
     pokemons: async (_, { page = 1, pageSize = 10 }, context) => {
-      context.fastify.log.info("pokemons from Patrik Duch");
       return getPokemonsResolver(page, pageSize, context);
+    },
+    favoritePokemons: async (_, {}, context) => {
+      return favoritePokemonsResolver(context);
     },
     getPokemonById: async (_, { id }, context) => {
       return getPokemonItemByIdResolver(id, context);
