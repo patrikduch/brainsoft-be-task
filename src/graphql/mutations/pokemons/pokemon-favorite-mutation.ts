@@ -26,3 +26,29 @@ export async function setFavoritePokemonMutation(
     return false;
   }
 }
+
+export async function unsetFavoritePokemonMutation(
+  pokemonId: string,
+  context: IGraphQLContext
+) {
+  const creatureEntityRepository =
+    context.fastify.orm.getRepository(CreatureEntity);
+
+  try {
+    const pokemon = await creatureEntityRepository.findOne({
+      where: {
+        id: pokemonId,
+      },
+    });
+    if (!pokemon) {
+      throw new Error("Pokemon not found");
+    }
+
+    pokemon.isFavorite = false;
+    await creatureEntityRepository.save(pokemon);
+    return false;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}

@@ -11,7 +11,10 @@ import { asClass, asValue } from "awilix";
 import { IGraphQLContext } from "./typescript/interfaces/IGraphQLContext";
 import PokemonService from "./services/pokemon-service";
 import { getPokemonTypesResolver } from "./graphql/resolvers/pokemons/pokemon-types-resolver";
-import { setFavoritePokemonMutation } from "./graphql/mutations/pokemons/pokemon-favorite-mutation";
+import {
+  setFavoritePokemonMutation,
+  unsetFavoritePokemonMutation,
+} from "./graphql/mutations/pokemons/pokemon-favorite-mutation";
 import { seedIvySaurPokemon } from "./seeders/pokemons/ivysaur-seeder";
 import { seedBulbasaurPokemon } from "./seeders/pokemons/bulbasaur-seeder";
 import { seedVenusaurPokemon } from "./seeders/pokemons/venusaur-seeder";
@@ -69,6 +72,9 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
   Mutation: {
     async setFavoritePokemon(_, { pokemonId }, context) {
       return setFavoritePokemonMutation(pokemonId, context);
+    },
+    unsetFavoritePokemon: async (_, { pokemonId }, context) => {
+      return unsetFavoritePokemonMutation(pokemonId, context);
     },
     addItem: async (_, {}, context) => {
       // await seedCreatureTypes(context);
