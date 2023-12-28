@@ -139,8 +139,8 @@ server.addHook("onReady", async () => {
     await seedWarTortlePokemon(server.orm);
     await seedBlastoisePokemon(server.orm);
     await seedCaterpiePokemon(server.orm);
+    await seedMetapodPokemon(server.orm);
     /*
-    await seedCaterpiePokemon(context);
     await seedMetapodPokemon(context);
     await seedButterfreePokemon(context);
     await seedWeedlePokemon(context);
