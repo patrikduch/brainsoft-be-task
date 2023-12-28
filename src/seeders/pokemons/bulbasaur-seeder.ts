@@ -106,6 +106,6 @@ export async function seedBulbasaurPokemon(orm: OrmType) {
     }
 
     await creatureEntityRepository.save(bulbasaur);
+    console.log("Finished seed of bulbasaur pokemon!");
   }
-  console.log("Finished seed of bulbasaur pokemon!");
 }
