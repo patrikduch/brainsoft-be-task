@@ -10,21 +10,13 @@ import { diContainer, fastifyAwilixPlugin } from "@fastify/awilix";
 import TypeOrmExampleService from "./services/typeorm-example-service";
 import { asClass, asValue } from "awilix";
 import { IGraphQLContext } from "./typescript/interfaces/IGraphQLContext";
-import { CreatureEntity } from "./entities/creature-entity";
 import {
   getPokemonItemByIdResolver,
-  getPokemonsResolver,
   searchPokemonByNameResolver,
 } from "./graphql/resolvers/pokemon-resolver";
 import PokemonService from "./services/pokemon-service";
 import { getPokemonTypesResolver } from "./graphql/resolvers/pokemon-types-resolver";
-import { seedCreatureTypes } from "./seeders/pokemon-types-seeder";
-import { CreatureTypeEntity } from "./entities/creature-type-entity";
-import { WeaknessEntity } from "./entities/weakness-entity";
-import { ResistanceEntity } from "./entities/resistence-entity";
-import { AttackEntity, AttackType } from "./entities/attack-entity";
 import { setFavoritePokemonMutation } from "./graphql/mutations/pokemons/pokemon-favorite-mutation";
-import { EvolutionEntity } from "./entities/evolution-entity";
 import { seedIvySaurPokemon } from "./seeders/pokemons/ivysaur-seeder";
 import { seedBulbasaurPokemon } from "./seeders/pokemons/bulbasaur-seeder";
 import { seedVenusaurPokemon } from "./seeders/pokemons/venusaur-seeder";
@@ -39,6 +31,7 @@ import { seedMetapodPokemon } from "./seeders/pokemons/metapod-seeder";
 import { seedButterfreePokemon } from "./seeders/pokemons/butterfree-seeder";
 import { seedWeedlePokemon } from "./seeders/pokemons/weedle-seeder";
 import { favoritePokemonsResolver } from "./graphql/resolvers/pokemons/favorite-pokemons-resolver";
+import { getPokemonsResolver } from "./graphql/resolvers/pokemons/get-pokemons-resolver";
 
 const dbConn = require("typeorm-fastify-plugin");
 
