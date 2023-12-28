@@ -133,7 +133,6 @@ export async function seedVenusaurPokemon(orm: OrmType) {
     }
 
     await creatureEntityRepository.save(venusaur);
-
     console.log("Finished seed of Venusaur pokemon!");
   }
 }

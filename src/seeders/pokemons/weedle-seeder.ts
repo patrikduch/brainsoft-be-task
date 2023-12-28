@@ -1,9 +1,9 @@
-import { AttackEntity } from "../../entities/attack-entity";
+import { OrmType } from "../../../fastify";
+import { AttackEntity, AttackType } from "../../entities/attack-entity";
 import { CreatureEntity } from "../../entities/creature-entity";
 import { CreatureTypeEntity } from "../../entities/creature-type-entity";
 import { ResistanceEntity } from "../../entities/resistence-entity";
 import { WeaknessEntity } from "../../entities/weakness-entity";
-import { IGraphQLContext } from "../../typescript/interfaces/IGraphQLContext";
 
 const weedleData = {
   id: "013",
@@ -19,28 +19,31 @@ const weedleData = {
   maxHP: 449,
   attacks: {
     fast: [
-      { name: "Bug Bite", type: "Bug", damage: 5 },
-      { name: "Poison Sting", type: "Poison", damage: 6 },
+      { name: "Bug Bite", type: "Bug", damage: 5, attackType: AttackType.Fast },
+      {
+        name: "Poison Sting",
+        type: "Poison",
+        damage: 6,
+        attackType: AttackType.Fast,
+      },
     ],
-    special: [{ name: "Struggle", type: "Normal", damage: 15 }],
+    special: [
+      {
+        name: "Struggle",
+        type: "Normal",
+        damage: 15,
+        attackType: AttackType.Special,
+      },
+    ],
   },
 };
 
-export async function seedWeedlePokemon(context: IGraphQLContext) {
-  const creatureEntityRepository =
-    context.fastify.orm.getRepository(CreatureEntity);
-
-  const creatureTypeEntityRepository =
-    context.fastify.orm.getRepository(CreatureTypeEntity);
-
-  const resistanceEntityRepository =
-    context.fastify.orm.getRepository(ResistanceEntity);
-
-  const weaknessEntityRepository =
-    context.fastify.orm.getRepository(WeaknessEntity);
-
-  const attackEntityRepository =
-    context.fastify.orm.getRepository(AttackEntity);
+export async function seedWeedlePokemon(orm: OrmType) {
+  const creatureEntityRepository = orm.getRepository(CreatureEntity);
+  const creatureTypeEntityRepository = orm.getRepository(CreatureTypeEntity);
+  const resistanceEntityRepository = orm.getRepository(ResistanceEntity);
+  const weaknessEntityRepository = orm.getRepository(WeaknessEntity);
+  const attackEntityRepository = orm.getRepository(AttackEntity);
 
   const weedleEntity = await creatureEntityRepository.findOne({
     where: { id: weedleData.id },
@@ -59,6 +62,69 @@ export async function seedWeedlePokemon(context: IGraphQLContext) {
     weedle.maxCP = weedleData.maxCP;
     weedle.maxHP = weedleData.maxHP;
 
+    // Add types
+    weedle.types = [];
+    for (const typeName of weedleData.types) {
+      let typeEntity = await creatureTypeEntityRepository.findOne({
+        where: { type: typeName },
+      });
+      if (!typeEntity) {
+        typeEntity = new CreatureTypeEntity();
+        typeEntity.type = typeName;
+        await creatureTypeEntityRepository.save(typeEntity);
+      }
+      weedle.types.push(typeEntity);
+    }
+
+    // Add resistances
+    weedle.resistances = [];
+    for (const resistanceName of weedleData.resistances) {
+      let resistanceEntity = await resistanceEntityRepository.findOne({
+        where: { name: resistanceName },
+      });
+      if (!resistanceEntity) {
+        resistanceEntity = new ResistanceEntity();
+        resistanceEntity.name = resistanceName;
+        await resistanceEntityRepository.save(resistanceEntity);
+      }
+      weedle.resistances.push(resistanceEntity);
+    }
+
+    // Add weaknesses
+    weedle.weaknesses = [];
+    for (const weaknessName of weedleData.weaknesses) {
+      let weaknessEntity = await weaknessEntityRepository.findOne({
+        where: { name: weaknessName },
+      });
+      if (!weaknessEntity) {
+        weaknessEntity = new WeaknessEntity();
+        weaknessEntity.name = weaknessName;
+        await weaknessEntityRepository.save(weaknessEntity);
+      }
+      weedle.weaknesses.push(weaknessEntity);
+    }
+
+    // Add attacks
+    weedle.attacks = [];
+    for (const attackData of [
+      ...weedleData.attacks.fast,
+      ...weedleData.attacks.special,
+    ]) {
+      let attackEntity = await attackEntityRepository.findOne({
+        where: { name: attackData.name },
+      });
+      if (!attackEntity) {
+        attackEntity = new AttackEntity();
+        attackEntity.name = attackData.name;
+        attackEntity.type = attackData.type;
+        attackEntity.damage = attackData.damage;
+        attackEntity.attackType = attackData.attackType;
+        await attackEntityRepository.save(attackEntity);
+      }
+      weedle.attacks.push(attackEntity);
+    }
+
     await creatureEntityRepository.save(weedle);
+    console.log("Finished seed of Weedle pokemon!");
   }
 }

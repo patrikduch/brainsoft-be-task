@@ -140,11 +140,8 @@ server.addHook("onReady", async () => {
     await seedBlastoisePokemon(server.orm);
     await seedCaterpiePokemon(server.orm);
     await seedMetapodPokemon(server.orm);
-    /*
-    await seedMetapodPokemon(context);
-    await seedButterfreePokemon(context);
-    await seedWeedlePokemon(context);
-    */
+    await seedButterfreePokemon(server.orm);
+    await seedWeedlePokemon(server.orm);
 
     console.log("Database seeding completed!");
   } catch (error) {
