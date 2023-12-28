@@ -1,6 +1,6 @@
-import { PokemonTypeDto } from "../../dtos/pokemon-type-dto";
-import { CreatureTypeEntity } from "../../entities/creature-type-entity";
-import { IGraphQLContext } from "../../typescript/interfaces/IGraphQLContext";
+import { PokemonTypeDto } from "../../../dtos/pokemon-type-dto";
+import { CreatureTypeEntity } from "../../../entities/creature-type-entity";
+import { IGraphQLContext } from "../../../typescript/interfaces/IGraphQLContext";
 
 export async function getPokemonTypesResolver(
   context: IGraphQLContext

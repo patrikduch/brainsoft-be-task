@@ -5,13 +5,12 @@ import pino from "pino";
 import { renderPlaygroundPage } from "graphql-playground-html";
 import { schema } from "./graphql/schema";
 import { AppDataSource } from "./data-source";
-import { helloResolver } from "./graphql/resolvers/hello-resolver";
 import { diContainer, fastifyAwilixPlugin } from "@fastify/awilix";
 import TypeOrmExampleService from "./services/typeorm-example-service";
 import { asClass, asValue } from "awilix";
 import { IGraphQLContext } from "./typescript/interfaces/IGraphQLContext";
 import PokemonService from "./services/pokemon-service";
-import { getPokemonTypesResolver } from "./graphql/resolvers/pokemon-types-resolver";
+import { getPokemonTypesResolver } from "./graphql/resolvers/pokemons/pokemon-types-resolver";
 import { setFavoritePokemonMutation } from "./graphql/mutations/pokemons/pokemon-favorite-mutation";
 import { seedIvySaurPokemon } from "./seeders/pokemons/ivysaur-seeder";
 import { seedBulbasaurPokemon } from "./seeders/pokemons/bulbasaur-seeder";
@@ -91,7 +90,6 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
     },
   },
   Query: {
-    hello: helloResolver,
     pokemons: async (_, { page = 1, pageSize = 10 }, context) => {
       return getPokemonsResolver(page, pageSize, context);
     },
