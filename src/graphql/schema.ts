@@ -5,6 +5,7 @@ type Query {
   favoritePokemons: [PokemonItem]
   getPokemonById(id: String!): PokemonItem
   searchByName(name: String!): PokemonItem
+  getPokemonsByType(typeName: String!): [PokemonItem]
   getPokemonTypes: [PokemonType!]
 }
 type Mutation {

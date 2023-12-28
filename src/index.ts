@@ -32,6 +32,7 @@ import { favoritePokemonsResolver } from "./graphql/resolvers/pokemons/favorite-
 import { getPokemonsResolver } from "./graphql/resolvers/pokemons/get-pokemons-resolver";
 import { getPokemonItemByIdResolver } from "./graphql/resolvers/pokemons/pokemon-id-resolver";
 import { searchPokemonByNameResolver } from "./graphql/resolvers/pokemons/pokemon-name-search-resolver";
+import { getPokemonsTypeResolver } from "./graphql/resolvers/pokemons/pokemon-type-resolver";
 
 const dbConn = require("typeorm-fastify-plugin");
 
@@ -107,6 +108,9 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
     },
     searchByName: async (_, { name }, context) => {
       return searchPokemonByNameResolver(name, context);
+    },
+    getPokemonsByType: async (_, { typeName }, context) => {
+      return getPokemonsTypeResolver(context, typeName);
     },
     getPokemonTypes: async (_, {}, context) => {
       return getPokemonTypesResolver(context);
