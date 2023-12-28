@@ -1,6 +1,7 @@
 export const schema = `
 type Query {
   hello: String
+  pokemons(pageId: Int, pageSize: Int): PokemonPage
   getPokemonById(id: String!): PokemonItem
   searchByName(name: String!): PokemonItem
   getPokemonTypes: [PokemonType!]
@@ -8,6 +9,13 @@ type Query {
 type Mutation {
   addItem(name: String!): Item
   setFavoritePokemon(pokemonId: String!): Boolean
+}
+
+type PokemonPage {
+  items: [PokemonItem]
+  totalCount: Int
+  pageId: Int
+  pageSize: Int
 }
 
 type PokemonItem {

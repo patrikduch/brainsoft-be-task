@@ -13,6 +13,7 @@ import { IGraphQLContext } from "./typescript/interfaces/IGraphQLContext";
 import { CreatureEntity } from "./entities/creature-entity";
 import {
   getPokemonItemByIdResolver,
+  getPokemonsResolver,
   searchPokemonByNameResolver,
 } from "./graphql/resolvers/pokemon-resolver";
 import PokemonService from "./services/pokemon-service";
@@ -99,6 +100,10 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
   },
   Query: {
     hello: helloResolver,
+    pokemons: async (_, { page = 1, pageSize = 10 }, context) => {
+      context.fastify.log.info("pokemons from Patrik Duch");
+      return getPokemonsResolver(page, pageSize, context);
+    },
     getPokemonById: async (_, { id }, context) => {
       return getPokemonItemByIdResolver(id, context);
     },
