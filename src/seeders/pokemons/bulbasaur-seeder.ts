@@ -1,25 +1,17 @@
+import { Logger } from "pino";
+import { OrmType } from "../../../fastify";
 import { AttackEntity, AttackType } from "../../entities/attack-entity";
 import { CreatureEntity } from "../../entities/creature-entity";
 import { CreatureTypeEntity } from "../../entities/creature-type-entity";
 import { ResistanceEntity } from "../../entities/resistence-entity";
 import { WeaknessEntity } from "../../entities/weakness-entity";
-import { IGraphQLContext } from "../../typescript/interfaces/IGraphQLContext";
 
-export async function seedBulbasaurPokemon(context: IGraphQLContext) {
-  const creatureEntityRepository =
-    context.fastify.orm.getRepository(CreatureEntity);
-
-  const creatureTypeEntityRepository =
-    context.fastify.orm.getRepository(CreatureTypeEntity);
-
-  const resistanceEntityRepository =
-    context.fastify.orm.getRepository(ResistanceEntity);
-
-  const weaknessEntityRepository =
-    context.fastify.orm.getRepository(WeaknessEntity);
-
-  const attackEntityRepository =
-    context.fastify.orm.getRepository(AttackEntity);
+export async function seedBulbasaurPokemon(orm: OrmType) {
+  const creatureEntityRepository = orm.getRepository(CreatureEntity);
+  const creatureTypeEntityRepository = orm.getRepository(CreatureTypeEntity);
+  const resistanceEntityRepository = orm.getRepository(ResistanceEntity);
+  const weaknessEntityRepository = orm.getRepository(WeaknessEntity);
+  const attackEntityRepository = orm.getRepository(AttackEntity);
 
   const bulbasaurEntity = await creatureEntityRepository.findOne({
     where: {
@@ -115,4 +107,5 @@ export async function seedBulbasaurPokemon(context: IGraphQLContext) {
 
     await creatureEntityRepository.save(bulbasaur);
   }
+  console.log("Finished seed of bulbasaur pokemon!");
 }

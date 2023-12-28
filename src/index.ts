@@ -79,6 +79,7 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
     },
     addItem: async (_, {}, context) => {
       // await seedCreatureTypes(context);
+      /*
       await seedBulbasaurPokemon(context);
       await seedIvySaurPokemon(context);
       await seedVenusaurPokemon(context);
@@ -92,6 +93,8 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
       await seedMetapodPokemon(context);
       await seedButterfreePokemon(context);
       await seedWeedlePokemon(context);
+
+      */
 
       return null;
     },
@@ -123,6 +126,32 @@ server.get("/playground", (_, reply) => {
   reply.send(renderPlaygroundPage({ endpoint: "/graphql" }));
 });
 
+// Run the seed method once Fastify is ready
+server.addHook("onReady", async () => {
+  try {
+    await seedBulbasaurPokemon(server.orm);
+    await seedIvySaurPokemon(server.orm);
+
+    /*
+    await seedIvySaurPokemon(context);
+    await seedVenusaurPokemon(context);
+    await seedCharmanderPokemon(context);
+    await seedCharmeleonPokemon(context);
+    await seedCharizardPokemon(context);
+    await seedSquirtlePokemon(context);
+    await seedWarTortlePokemon(context);
+    await seedBlastoisePokemon(context);
+    await seedCaterpiePokemon(context);
+    await seedMetapodPokemon(context);
+    await seedButterfreePokemon(context);
+    await seedWeedlePokemon(context);
+    */
+
+    console.log("Database seeding completed!");
+  } catch (error) {
+    console.log("Database seeding failed:", error);
+  }
+});
 server.register(mercurius, {
   schema,
   resolvers,

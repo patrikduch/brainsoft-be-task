@@ -1,25 +1,16 @@
-import { AttackEntity } from "../../entities/attack-entity";
+import { OrmType } from "../../../fastify";
+import { AttackEntity, AttackType } from "../../entities/attack-entity";
 import { CreatureEntity } from "../../entities/creature-entity";
 import { CreatureTypeEntity } from "../../entities/creature-type-entity";
 import { ResistanceEntity } from "../../entities/resistence-entity";
 import { WeaknessEntity } from "../../entities/weakness-entity";
-import { IGraphQLContext } from "../../typescript/interfaces/IGraphQLContext";
 
-export async function seedIvySaurPokemon(context: IGraphQLContext) {
-  const creatureEntityRepository =
-    context.fastify.orm.getRepository(CreatureEntity);
-
-  const creatureTypeEntityRepository =
-    context.fastify.orm.getRepository(CreatureTypeEntity);
-
-  const resistanceEntityRepository =
-    context.fastify.orm.getRepository(ResistanceEntity);
-
-  const weaknessEntityRepository =
-    context.fastify.orm.getRepository(WeaknessEntity);
-
-  const attackEntityRepository =
-    context.fastify.orm.getRepository(AttackEntity);
+export async function seedIvySaurPokemon(orm: OrmType) {
+  const creatureEntityRepository = orm.getRepository(CreatureEntity);
+  const creatureTypeEntityRepository = orm.getRepository(CreatureTypeEntity);
+  const resistanceEntityRepository = orm.getRepository(ResistanceEntity);
+  const weaknessEntityRepository = orm.getRepository(WeaknessEntity);
+  const attackEntityRepository = orm.getRepository(AttackEntity);
 
   const ivySaurEntity = await creatureEntityRepository.findOne({
     where: {
@@ -42,8 +33,10 @@ export async function seedIvySaurPokemon(context: IGraphQLContext) {
     ivysaur.maxCP = 1483; // Maximum Combat Power
     ivysaur.maxHP = 1632; // Maximum Health Points
 
-    // Initialize the types array
     ivysaur.types = [];
+    ivysaur.resistances = [];
+    ivysaur.weaknesses = [];
+    ivysaur.attacks = [];
 
     // Add specific types for Ivysaur
     const types = ["Grass", "Poison"];
@@ -58,6 +51,64 @@ export async function seedIvySaurPokemon(context: IGraphQLContext) {
       }
       ivysaur.types.push(typeEntity);
     }
+
+    const resistances = ["Water", "Electric", "Grass", "Fighting", "Fairy"];
+    for (const resistanceName of resistances) {
+      let resistanceEntity = await resistanceEntityRepository.findOne({
+        where: { name: resistanceName },
+      });
+      if (!resistanceEntity) {
+        resistanceEntity = new ResistanceEntity();
+        resistanceEntity.name = resistanceName;
+        await resistanceEntityRepository.save(resistanceEntity);
+      }
+      ivysaur.resistances.push(resistanceEntity);
+    }
+
+    const weaknesses = ["Fire", "Ice", "Flying", "Psychic"];
+    for (const weaknessName of weaknesses) {
+      let weaknessEntity = await weaknessEntityRepository.findOne({
+        where: { name: weaknessName },
+      });
+      if (!weaknessEntity) {
+        weaknessEntity = new WeaknessEntity();
+        weaknessEntity.name = weaknessName;
+        await weaknessEntityRepository.save(weaknessEntity);
+      }
+      ivysaur.weaknesses.push(weaknessEntity);
+    }
+
+    const ivysaurAttacks = [
+      {
+        name: "Razor Leaf",
+        type: "Grass",
+        damage: 15,
+        attackType: AttackType.Fast,
+      },
+      {
+        name: "Vine Whip",
+        type: "Grass",
+        damage: 7,
+        attackType: AttackType.Fast,
+      },
+    ];
+
+    for (const attackData of ivysaurAttacks) {
+      let attackEntity = await attackEntityRepository.findOne({
+        where: { name: attackData.name },
+      });
+      if (!attackEntity) {
+        attackEntity = new AttackEntity();
+        attackEntity.name = attackData.name;
+        attackEntity.type = attackData.type;
+        attackEntity.damage = attackData.damage;
+        attackEntity.attackType = attackData.attackType;
+        await attackEntityRepository.save(attackEntity);
+      }
+      ivysaur.attacks.push(attackEntity);
+    }
+
     await creatureEntityRepository.save(ivysaur);
+    console.log("Finished seed of Ivysaur pokemon!");
   }
 }
