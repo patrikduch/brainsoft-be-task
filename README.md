@@ -22,4 +22,4 @@ Implement the API Interface with the following features:
     <li>Mutation to mark/unmark pokemon as favorite</li>
 <ul>
 
-<i>Test are important and if time allows it, we'd like to see some test coverage.</i>
+<p>Test are important and if time allows it, we'd like to see some test coverage.</p>
