@@ -9,7 +9,7 @@ export class EvolutionEntity {
   id: number;
 
   @Column()
-  evolutionId: number;
+  evolutionId: string;
 
   @Column()
   name: string;

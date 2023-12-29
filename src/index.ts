@@ -33,6 +33,7 @@ import { getPokemonsResolver } from "./graphql/resolvers/pokemons/get-pokemons-r
 import { getPokemonItemByIdResolver } from "./graphql/resolvers/pokemons/pokemon-id-resolver";
 import { searchPokemonByNameResolver } from "./graphql/resolvers/pokemons/pokemon-name-search-resolver";
 import { getPokemonsTypeResolver } from "./graphql/resolvers/pokemons/pokemon-type-resolver";
+import { seedIvysaurToVenusaurPokemonEvolutoon } from "./seeders/pokemons/evolutions/ivysaur-to-venusaur-evolution-seeder";
 
 const dbConn = require("typeorm-fastify-plugin");
 
@@ -76,27 +77,6 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
     },
     unsetFavoritePokemon: async (_, { pokemonId }, context) => {
       return unsetFavoritePokemonMutation(pokemonId, context);
-    },
-    addItem: async (_, {}, context) => {
-      // await seedCreatureTypes(context);
-      /*
-      await seedBulbasaurPokemon(context);
-      await seedIvySaurPokemon(context);
-      await seedVenusaurPokemon(context);
-      await seedCharmanderPokemon(context);
-      await seedCharmeleonPokemon(context);
-      await seedCharizardPokemon(context);
-      await seedSquirtlePokemon(context);
-      await seedWarTortlePokemon(context);
-      await seedBlastoisePokemon(context);
-      await seedCaterpiePokemon(context);
-      await seedMetapodPokemon(context);
-      await seedButterfreePokemon(context);
-      await seedWeedlePokemon(context);
-
-      */
-
-      return null;
     },
   },
   Query: {
@@ -142,6 +122,8 @@ server.addHook("onReady", async () => {
     await seedMetapodPokemon(server.orm);
     await seedButterfreePokemon(server.orm);
     await seedWeedlePokemon(server.orm);
+
+    await seedIvysaurToVenusaurPokemonEvolutoon(server.orm);
 
     console.log("Database seeding completed!");
   } catch (error) {
