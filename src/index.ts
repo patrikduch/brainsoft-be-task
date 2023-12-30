@@ -33,7 +33,8 @@ import { getPokemonsResolver } from "./graphql/resolvers/pokemons/get-pokemons-r
 import { getPokemonItemByIdResolver } from "./graphql/resolvers/pokemons/pokemon-id-resolver";
 import { searchPokemonByNameResolver } from "./graphql/resolvers/pokemons/pokemon-name-search-resolver";
 import { getPokemonsTypeResolver } from "./graphql/resolvers/pokemons/pokemon-type-resolver";
-import { seedIvysaurPokemonEvolutoon } from "./seeders/pokemons/evolutions/ivysaur-evolution-seeder";
+import { seedBulbasaurPokemonEvolutions } from "./seeders/pokemons/evolutions/bulbasaur-evolutions-seeder";
+import { seedIvysaurEvolutions } from "./seeders/pokemons/evolutions/ivysaur-evolution-seeder";
 
 const dbConn = require("typeorm-fastify-plugin");
 
@@ -123,7 +124,8 @@ server.addHook("onReady", async () => {
     await seedButterfreePokemon(server.orm);
     await seedWeedlePokemon(server.orm);
 
-    await seedIvysaurPokemonEvolutoon(server.orm);
+    await seedBulbasaurPokemonEvolutions(server.orm);
+    await seedIvysaurEvolutions(server.orm);
 
     console.log("Database seeding completed!");
   } catch (error) {

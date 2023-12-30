@@ -70,7 +70,10 @@ export class CreatureEntity {
   })
   attacks: AttackEntity[];
 
-  @OneToMany(() => EvolutionEntity, (evolution) => evolution.creature)
+  @ManyToMany(() => EvolutionEntity, (evolution) => evolution.creature)
+  @JoinTable({
+    name: "creature_evolution",
+  })
   evolutions: EvolutionEntity[];
 
   @Column({ default: false })

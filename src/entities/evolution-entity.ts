@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany } from "typeorm";
 import { CreatureEntity } from "./creature-entity";
 
 @Entity({
@@ -11,6 +11,6 @@ export class EvolutionEntity {
   @Column()
   name: string;
 
-  @ManyToOne(() => CreatureEntity, (creature) => creature.evolutions)
+  @ManyToMany(() => CreatureEntity, (creature) => creature.evolutions)
   creature: CreatureEntity;
 }

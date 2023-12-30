@@ -2,40 +2,62 @@ import { OrmType } from "../../../../fastify";
 import { CreatureEntity } from "../../../entities/creature-entity";
 import { EvolutionEntity } from "../../../entities/evolution-entity";
 
-export async function seedIvysaurPokemonEvolutoon(orm: OrmType) {
+export async function seedIvysaurEvolutions(orm: OrmType) {
+  await ivysaurToVenusaur(orm);
+  console.log("Finished seed of Bulbasaur evolutions");
+}
+const ivysaurToVenusaur = async (orm: OrmType) => {
   const creatureEntityRepository = orm.getRepository(CreatureEntity);
   const evolutionEntityRepository = orm.getRepository(EvolutionEntity);
 
-  // Ivysaur -> Venusaur
+  const ivysaurEntity = (await creatureEntityRepository.findOne({
+    where: {
+      name: "Ivysaur",
+    },
+    relations: {
+      evolutions: true,
+    },
+  })) as CreatureEntity;
+
   const venusaurEntity = (await creatureEntityRepository.findOne({
     where: {
       name: "Venusaur",
     },
   })) as CreatureEntity;
 
-  const ivysaurEntity = (await creatureEntityRepository.findOne({
-    where: {
-      name: "Ivysaur",
-    },
-  })) as CreatureEntity;
-
-  if (venusaurEntity && ivysaurEntity) {
-    // Check if the evolution already exists to avoid duplicates
-    const existingEvolution = await evolutionEntityRepository.findOne({
-      where: {
-        creature: ivysaurEntity,
-        id: venusaurEntity.id, 
-      },
+  if (ivysaurEntity && venusaurEntity) {
+    let evolutionsExists = false;
+    ivysaurEntity.evolutions.forEach((e) => {
+      if (e.name == venusaurEntity.name) {
+        evolutionsExists = true;
+      }
     });
 
-    if (!existingEvolution) {
-      const evolution = new EvolutionEntity();
-      evolution.creature = ivysaurEntity; 
-      evolution.name = venusaurEntity.name;
+    if (!evolutionsExists) {
+      const evolutionExists = await evolutionEntityRepository.findOne({
+        where: {
+          name: venusaurEntity.name,
+        },
+      });
 
-      await evolutionEntityRepository.save(evolution); 
+      if (!evolutionExists) {
+        const evolution = new EvolutionEntity();
+        evolution.creature = venusaurEntity;
+        evolution.name = venusaurEntity.name;
+        await evolutionEntityRepository.save(evolution);
+      }
+
+      const evolution = (await evolutionEntityRepository.findOne({
+        where: {
+          name: venusaurEntity.name,
+        },
+      })) as EvolutionEntity;
+
+      if (!evolution) {
+        ivysaurEntity.evolutions.push(evolution);
+      }
+
+      await creatureEntityRepository.save(ivysaurEntity);
     }
   }
-
-  console.log("Finished seed of Ivysaur evolutions");
-}
+};
