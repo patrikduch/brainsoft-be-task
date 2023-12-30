@@ -15,6 +15,7 @@ export async function getPokemonItemByIdResolver(
       types: true,
       resistances: true,
       weaknesses: true,
+      evolutions: true,
     },
     where: {
       id,

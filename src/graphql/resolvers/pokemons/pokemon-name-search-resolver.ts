@@ -15,6 +15,7 @@ export async function searchPokemonByNameResolver(
       types: true,
       resistances: true,
       weaknesses: true,
+      evolutions: true,
     },
     where: {
       name,

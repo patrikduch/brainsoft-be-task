@@ -28,7 +28,8 @@ type PokemonItem {
   resistances: [PokemonResistance!]
   weaknesses: [PokemonWeakness!]
   attacks: [PokemonAttack!]
-  isFavorite: Boolean
+  isFavorite: Boolean,
+  evolutions: [PokemonEvolution]
 }
 
 type PokemonType {
@@ -47,6 +48,11 @@ type PokemonWeakness {
 }
 
 type PokemonAttack {
+  id: String
+  name: String
+}
+
+type PokemonEvolution {
   id: String
   name: String
 }

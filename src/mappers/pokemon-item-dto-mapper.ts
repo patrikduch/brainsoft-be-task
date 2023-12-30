@@ -1,4 +1,5 @@
 import { PokemonAttackDto } from "../dtos/pokemon-attack-dto";
+import { PokemonEvolutionDto } from "../dtos/pokemon-evolution-dto";
 import { PokemonItemDto } from "../dtos/pokemon-item-dto";
 import { PokemonResistanceDto } from "../dtos/pokemon-resistance-dto";
 import { PokemonTypeDto } from "../dtos/pokemon-type-dto";
@@ -29,6 +30,11 @@ export const mapToPokemonItemDto = (
   result.attacks = pokemonItem?.attacks?.map(
     (attack) => new PokemonAttackDto(attack.id, attack.name)
   );
+
+  result.evolutions = pokemonItem?.evolutions.map(
+    (evolution) => new PokemonEvolutionDto(evolution.id, evolution.name)
+  );
+  
 
   result.isFavorite = pokemonItem?.isFavorite;
 

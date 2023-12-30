@@ -1,4 +1,5 @@
 import { PokemonAttackDto } from "./pokemon-attack-dto";
+import { PokemonEvolutionDto } from "./pokemon-evolution-dto";
 import { PokemonResistanceDto } from "./pokemon-resistance-dto";
 import { PokemonTypeDto } from "./pokemon-type-dto";
 import { PokemonWeaknessDto } from "./pokemon-weakness-dto";
@@ -13,4 +14,5 @@ export class PokemonItemDto {
   public resistances: PokemonResistanceDto[] | undefined;
   public weaknesses: PokemonWeaknessDto[] | undefined;
   public attacks: PokemonAttackDto[] | undefined;
+  public evolutions: PokemonEvolutionDto[] | undefined;
 }

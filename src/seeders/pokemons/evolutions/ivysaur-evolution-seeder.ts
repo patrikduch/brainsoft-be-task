@@ -2,7 +2,7 @@ import { OrmType } from "../../../../fastify";
 import { CreatureEntity } from "../../../entities/creature-entity";
 import { EvolutionEntity } from "../../../entities/evolution-entity";
 
-export async function seedIvysaurToVenusaurPokemonEvolutoon(orm: OrmType) {
+export async function seedIvysaurPokemonEvolutoon(orm: OrmType) {
   const creatureEntityRepository = orm.getRepository(CreatureEntity);
   const evolutionEntityRepository = orm.getRepository(EvolutionEntity);
 
@@ -24,21 +24,18 @@ export async function seedIvysaurToVenusaurPokemonEvolutoon(orm: OrmType) {
     const existingEvolution = await evolutionEntityRepository.findOne({
       where: {
         creature: ivysaurEntity,
-        evolutionId: venusaurEntity.id, // Assuming evolutionId represents the evolved form's ID
+        id: venusaurEntity.id, 
       },
     });
 
     if (!existingEvolution) {
       const evolution = new EvolutionEntity();
-      evolution.creature = ivysaurEntity; // This should reference the pre-evolved form
-      evolution.evolutionId = venusaurEntity.id; // This should be the ID, not a static number like 1
-      evolution.name = "Ivysaur->Venusaur";
+      evolution.creature = ivysaurEntity; 
+      evolution.name = venusaurEntity.name;
 
-      await evolutionEntityRepository.save(evolution); // Make sure to await this save operation
+      await evolutionEntityRepository.save(evolution); 
     }
   }
 
-  console.log("seedPokemonEvolutions");
-  console.log(venusaurEntity);
-  console.log(ivysaurEntity);
+  console.log("Finished seed of Ivysaur evolutions");
 }

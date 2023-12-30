@@ -6,10 +6,7 @@ import { CreatureEntity } from "./creature-entity";
 })
 export class EvolutionEntity {
   @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  evolutionId: string;
+  id: string;
 
   @Column()
   name: string;
