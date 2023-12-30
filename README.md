@@ -23,3 +23,14 @@ Implement the API Interface with the following features:
 <ul>
 
 <p>Test are important and if time allows it, we'd like to see some test coverage.</p>
+
+
+
+##  Project startup
+
+### Migrations
+
+DB preparation with test data
+```bash
+yarn run migrations:run
+```
