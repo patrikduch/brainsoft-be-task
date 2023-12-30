@@ -4,7 +4,6 @@ import { CreatureEntity } from "../../entities/creature-entity";
 import { CreatureTypeEntity } from "../../entities/creature-type-entity";
 import { ResistanceEntity } from "../../entities/resistence-entity";
 import { WeaknessEntity } from "../../entities/weakness-entity";
-import { IGraphQLContext } from "../../typescript/interfaces/IGraphQLContext";
 
 const blastoiseData = {
   id: "009",
