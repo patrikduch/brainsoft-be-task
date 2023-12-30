@@ -35,7 +35,6 @@ export const mapToPokemonItemDto = (
     (evolution) => new PokemonEvolutionDto(evolution.id, evolution.name)
   );
   
-
   result.isFavorite = pokemonItem?.isFavorite;
 
   return result;
