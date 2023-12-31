@@ -26,21 +26,39 @@ Evolution -> Creature M:N
 
 Each evolution can be associated with multiple creatures, therefore for instance Bulbasaur has evolution to Ivysaur and also Venusaur and Ivysaur has evolution to Venusaur, so Venusaur is used multiple times.
 
+## Migrations
+
+Create a new migration based on model change
+
+```bash
+yarn run migration:generate ./src/migrations/migration_name
+```
+
 ## Project startup
 
-### Migrations
+### migrations
 
-DB preparation with test data
+DB structure preparation
 
 ```bash
 yarn run migrations:run
 ```
 
-yarn run migration:generate ./src/migrations/evolution_relationship_fix
+### app startup
 
-Query example usage
+```bash
+yarn run dev
+```
 
+## GraphQL queries
+
+API query example usage
+
+### Queries resolvers
+
+```bash
 {
 searchByName(name:"Ivysaur"){id, name, evolutions{id, name}}
 getPokemonById(id: "002") {id, evolutions {name}}
 }
+```
