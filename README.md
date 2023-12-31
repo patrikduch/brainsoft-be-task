@@ -20,6 +20,8 @@ Implement the API Interface with the following features:
 
 <p>Test are important and if time allows it, we'd like to see some test coverage.</p>
 
+Extended with pokemon evolution functionality. Each pokemon may or maynot have the evolutions phases (concept of levelling up, if the pokemon cannot evolve anymore - no evolutions are present.)
+
 ## Domain
 
 Evolution -> Creature M:N
