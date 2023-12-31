@@ -9,7 +9,6 @@ import { diContainer, fastifyAwilixPlugin } from "@fastify/awilix";
 import TypeOrmExampleService from "./services/typeorm-example-service";
 import { asClass, asValue } from "awilix";
 import { IGraphQLContext } from "./typescript/interfaces/IGraphQLContext";
-import PokemonService from "./services/pokemon-service";
 import { getPokemonTypesResolver } from "./graphql/resolvers/pokemons/pokemon-types-resolver";
 import {
   setFavoritePokemonMutation,
@@ -74,7 +73,6 @@ server.register(fastifyAwilixPlugin, {
 diContainer.register({
   logger: asValue(server.log),
   typeOrmExampleService: asClass(TypeOrmExampleService).singleton(),
-  pokemonService: asClass(PokemonService).transient(),
 });
 
 const resolvers: IResolvers<any, IGraphQLContext> = {
