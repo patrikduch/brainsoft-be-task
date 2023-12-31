@@ -41,7 +41,7 @@ yarn run migration:generate ./src/migrations/migration_name
 
 ## Project startup
 
-### migrations
+### Migrations
 
 DB structure preparation
 
@@ -49,7 +49,7 @@ DB structure preparation
 yarn run migrations:run
 ```
 
-### app startup
+### App startup
 
 Run the build. This command will watch the codebase for upcoming changes.
 
