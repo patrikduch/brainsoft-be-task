@@ -53,9 +53,7 @@ const ivysaurToVenusaur = async (orm: OrmType) => {
         },
       })) as EvolutionEntity;
 
-      if (!evolution) {
-        ivysaurEntity.evolutions.push(evolution);
-      }
+      ivysaurEntity.evolutions.push(evolution);
 
       await creatureEntityRepository.save(ivysaurEntity);
     }
