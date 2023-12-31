@@ -27,7 +27,25 @@ Implement the API Interface with the following features:
 
 ## Domain
 
-Evolution -> Creature M:N
+<img src="https://github.com/patrikduch/brainsoft-be-task/blob/main/documentation/images/diagram.png?raw=true" />
+
+creature_type -> creature (M:N)
+
+Each type of pokemon can be associated with multiple pokemons and each pokemon can be identified by more types.
+
+resistance -> creature (M:N)
+
+Each resistance can be assoaciated with multiple pokemons and each pokemon can have more resistance attributes.
+
+weakness -> creature (M:N)
+
+Each weakness can be assoaciated with multiple pokemons and each pokemon can have more weakness attributes.
+
+attack -> creature (M:N)
+
+Each attack can be assoaciated with multiple pokemons and each pokemon can have more attack attributes.
+
+evolution -> creature (M:N)
 
 Each evolution can be associated with multiple creatures, therefore for instance Bulbasaur has evolution to Ivysaur and also Venusaur and Ivysaur has evolution to Venusaur, so Venusaur is used multiple times.
 
