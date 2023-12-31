@@ -51,6 +51,14 @@ yarn run migrations:run
 
 ### app startup
 
+Run the build. This command will watch the codebase for upcoming changes.
+
+```bash
+yarn run build
+```
+
+Startup of Fastify server
+
 ```bash
 yarn run dev
 ```
