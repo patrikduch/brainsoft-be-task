@@ -39,6 +39,8 @@ import { seedCaterpiePokemonEvolutions } from "./seeders/pokemons/evolutions/cat
 import { seedMetapodPokemonEvolutions } from "./seeders/pokemons/evolutions/metapod-evolutions-seeder";
 import { seedCharmanderPokemonEvolutions } from "./seeders/pokemons/evolutions/charmander-evolutions-seeder";
 import { seedCharmeleonPokemonEvolutions } from "./seeders/pokemons/evolutions/charmeleon-evolutions-seeder";
+import { seedSquirtlePokemonEvolutions } from "./seeders/pokemons/evolutions/squirtle-evolutions-seeder";
+import { seedWartortlePokemonEvolutions } from "./seeders/pokemons/evolutions/wartortle-evolutions-seeder";
 
 const dbConn = require("typeorm-fastify-plugin");
 
@@ -134,6 +136,8 @@ server.addHook("onReady", async () => {
     await seedMetapodPokemonEvolutions(server.orm);
     await seedCharmanderPokemonEvolutions(server.orm);
     await seedCharmeleonPokemonEvolutions(server.orm);
+    await seedSquirtlePokemonEvolutions(server.orm);
+    await seedWartortlePokemonEvolutions(server.orm);
 
     console.log("Database seeding completed!");
   } catch (error) {

@@ -4,7 +4,7 @@ import { EvolutionEntity } from "../../../entities/evolution-entity";
 
 export async function seedIvysaurEvolutions(orm: OrmType) {
   await ivysaurToVenusaur(orm);
-  console.log("Finished seed of Bulbasaur evolutions");
+  console.log("Finished seed of Ivysaur evolutions");
 }
 const ivysaurToVenusaur = async (orm: OrmType) => {
   const creatureEntityRepository = orm.getRepository(CreatureEntity);

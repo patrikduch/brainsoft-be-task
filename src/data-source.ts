@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   password: "duch",
   database: "fastify-postgres-db",
   synchronize: false,
-  logging: false,
+  logging: true,
   entities: ["build/entities/**/*.js"],
   migrations: ["build/migrations/**/*.js"],
   subscribers: [],
