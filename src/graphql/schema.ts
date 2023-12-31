@@ -3,7 +3,7 @@ type Query {
   pokemons(pageId: Int, pageSize: Int): PokemonPage
   favoritePokemons: [PokemonItem]
   getPokemonById(id: String!): PokemonItem
-  searchByName(name: String!): PokemonItem
+  searchPokemonByName(name: String!): PokemonItem
   getPokemonsByType(typeName: String!): [PokemonItem]
   getPokemonTypes: [PokemonType!]
 }

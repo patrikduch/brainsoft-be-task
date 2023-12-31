@@ -96,7 +96,7 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
     getPokemonById: async (_, { id }, context) => {
       return getPokemonItemByIdResolver(id, context);
     },
-    searchByName: async (_, { name }, context) => {
+    searchPokemonByName: async (_, { name }, context) => {
       return searchPokemonByNameResolver(name, context);
     },
     getPokemonsByType: async (_, { typeName }, context) => {
