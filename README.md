@@ -71,7 +71,21 @@ API query example usage
 
 ```bash
 {
-    searchByName(name:"Ivysaur"){id, name, evolutions{id, name}}
-    getPokemonById(id: "002") {id, evolutions {name}}
+  searchPokemonByName(name:"Ivysaur"){id, name, isFavorite, evolutions{id, name}}
+  getPokemonById(id: "007") {id, name, isFavorite, evolutions {id, name}}
 }
+```
+
+### Mutations
+
+Set pokemon as a favorite
+
+```bash
+mutation {setFavoritePokemon(pokemonId:"002")}
+```
+
+Unset a pokemon as a favorite
+
+```bash
+mutation{unsetFavoritePokemon(pokemonId: "002")}
 ```
