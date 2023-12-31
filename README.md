@@ -1,5 +1,8 @@
 # brainsoft-be-task
 
+Based on skeleton project from Patrik Duch
+https://github.com/patrikduch/fastify-be-template
+
 ## Task description
 
 Design the database to store information for the Pokemon data
@@ -20,7 +23,7 @@ Implement the API Interface with the following features:
 
 <p>Test are important and if time allows it, we'd like to see some test coverage.</p>
 
-Extended with pokemon evolution functionality. Each pokemon may or maynot have the evolutions phases (concept of levelling up, if the pokemon cannot evolve anymore - no evolutions are present.)
+<strong><i>Extended with pokemon evolution functionality. Each pokemon may or may not have the evolutions phases (concept of levelling up, if the pokemon cannot evolve anymore - no evolutions are present.)</i></strong>
 
 ## Domain
 
@@ -60,7 +63,7 @@ API query example usage
 
 ```bash
 {
-searchByName(name:"Ivysaur"){id, name, evolutions{id, name}}
-getPokemonById(id: "002") {id, evolutions {name}}
+    searchByName(name:"Ivysaur"){id, name, evolutions{id, name}}
+    getPokemonById(id: "002") {id, evolutions {name}}
 }
 ```
