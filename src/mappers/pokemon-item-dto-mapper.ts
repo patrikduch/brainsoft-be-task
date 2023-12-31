@@ -31,10 +31,10 @@ export const mapToPokemonItemDto = (
     (attack) => new PokemonAttackDto(attack.id, attack.name)
   );
 
-  result.evolutions = pokemonItem?.evolutions.map(
+  result.evolutions = pokemonItem?.evolutions?.map(
     (evolution) => new PokemonEvolutionDto(evolution.id, evolution.name)
   );
-  
+
   result.isFavorite = pokemonItem?.isFavorite;
 
   return result;

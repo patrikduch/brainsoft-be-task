@@ -10,11 +10,18 @@ export async function getPokemonsTypeResolver(
   const creatureEntityRepository =
     context.fastify.orm.getRepository(CreatureEntity);
 
-  const creatures = await creatureEntityRepository
-    .createQueryBuilder("creature")
-    .leftJoinAndSelect("creature.types", "type")
-    .where("type.type = :pokemonTypeName", { pokemonTypeName })
-    .getMany();
+  const creatures = await creatureEntityRepository.find({
+    relations: {
+      types: true,
+      attacks: true,
+      resistances: true,
+      weaknesses: true,
+      evolutions: true,
+    },
+    where: {
+      types: { type: pokemonTypeName },
+    },
+  });
 
   let pokemons: PokemonItemDto[] = [];
   creatures.forEach((pokemonItem) => {
