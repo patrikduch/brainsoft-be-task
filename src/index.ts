@@ -87,8 +87,8 @@ const resolvers: IResolvers<any, IGraphQLContext> = {
     },
   },
   Query: {
-    pokemons: async (_, { page = 1, pageSize = 10 }, context) => {
-      return getPokemonsResolver(page, pageSize, context);
+    pokemons: async (_, { pageId = 1, pageSize = 5 }, context) => {
+      return getPokemonsResolver(pageId, pageSize, context);
     },
     favoritePokemons: async (_, {}, context) => {
       return favoritePokemonsResolver(context);

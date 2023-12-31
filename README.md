@@ -71,6 +71,7 @@ API query example usage
 
 ```bash
 {
+  pokemons(pageId: 3, pageSize: 5){items{name}}
   searchPokemonByName(name:"Ivysaur"){id, name, isFavorite, evolutions{id, name}}
   getPokemonById(id: "007") {id, name, isFavorite, evolutions {id, name}}
   favoritePokemons {id, name},

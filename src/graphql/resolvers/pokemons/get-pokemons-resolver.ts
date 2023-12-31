@@ -10,11 +10,22 @@ export async function getPokemonsResolver(
     context.fastify.orm.getRepository(CreatureEntity);
 
   const offset = (pageId - 1) * pageSize;
+
+  console.log("pageId");
+  console.log(pageId);
+
+  console.log("pageSize");
+  console.log(pageSize);
+
+  console.log(offset);
   const limit = pageSize;
 
   const pokemons = await creatureEntityRepository.find({
     skip: offset,
     take: limit,
+    order: {
+      id: "ASC",
+    },
   });
 
   const totalCount = await creatureEntityRepository.count();
