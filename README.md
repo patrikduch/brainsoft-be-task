@@ -75,7 +75,7 @@ API query example usage
   getPokemonById(id: "007") {id, name, isFavorite, evolutions {id, name}}
   favoritePokemons {id, name},
   getPokemonTypes {id, name}
-  getPokemonsByType(typeName:"Grass"){id, name, types {name}, resistances {name}, weaknesses{name}, attacks {name}, evolutions{name}}
+  getPokemonsByType(typeName:"Grass"){id, name, resistances {name},  attacks {name}, evolutions{name}}
 }
 ```
 
